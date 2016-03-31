@@ -1,0 +1,13 @@
+#ifndef SHAREDDEF_H
+#define SHAREDDEF_H
+
+#define STARTING_ELECTRO 50
+
+#define STARTING_COAL 24
+#define STARTING_OIL 18
+#define STARTING_GARBAGE 6
+#define STARTING_URANIUM 2
+
+#define MAX_CARDS 12
+
+#endif // SHAREDDEF_H
