@@ -18,7 +18,6 @@ void G_BiddingDialog::Initialize(std::vector<C_PlayerData *> pBidders, std::vect
     biddersThisRound = pBidders;
     bidderList = pBList;
     currentBidder = 1;
-    maxBidders = bidderList.size();
 }
 
 void G_BiddingDialog::SetInitialDisplay(int cardNum) {
@@ -56,6 +55,7 @@ void G_BiddingDialog::on_pushButton_clicked()
     if (biddersThisRound.size() == 1) {
         info = "Player " + QString::fromStdString(biddersThisRound[0]->GetName()) + " bought this card.";
         ui->textBrowser->append(info);
+        // for clearly seeing the test result, you can commend line the following code
         this->accept();
     }
 }
@@ -77,6 +77,7 @@ void G_BiddingDialog::on_pushButton_2_clicked()
     if (biddersThisRound.size() == 1) {
         info = "Player " + QString::fromStdString(biddersThisRound[0]->GetName()) + " bought this card.";
         ui->textBrowser->append(info);
+        // for clearly seeing the test result, you can commend line the following code
         this->accept();
     }
 

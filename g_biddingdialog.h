@@ -35,7 +35,6 @@ private:
     std::vector<C_PlayerData *> bidderList;
 
     int currentBidder;
-    int maxBidders;
 
     int biddingPrice;
 };
