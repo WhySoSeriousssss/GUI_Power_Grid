@@ -29,7 +29,7 @@ public:
 
     vector<C_PlayerData> playerList;
 
-//    C_DeckData deck;
+    C_DeckData deck;
 
     C_ResourceMarket market;
 //    C_ResourceMarketView marketView;

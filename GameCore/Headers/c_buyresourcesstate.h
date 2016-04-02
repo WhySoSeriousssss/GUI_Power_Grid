@@ -21,7 +21,7 @@ public:
     void Exit();
 
 private:
-//	CMarketView m_View;
+//	C_ResourceMarketView m_View;
     C_ResourceMarket* m_pMarket;
 };
 

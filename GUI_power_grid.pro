@@ -30,7 +30,13 @@ SOURCES += main.cpp\
     GameCore/Sources/c_mapdata.cpp \
     g_buyingresourcesdialog.cpp \
     GameCore/Sources/c_buyresourcesstate.cpp \
-    GameCore/Sources/c_gamecontroller.cpp
+    GameCore/Sources/c_gamecontroller.cpp \
+    g_biddingwindows.cpp \
+    GameCore/Sources/c_resourcemarketview.cpp \
+    GameCore/Sources/c_buypowerplantstate.cpp \
+    GameCore/include/pugixml.cpp \
+    GameCore/util.cpp \
+    g_biddingdialog.cpp
 
 HEADERS  += g_gamewindow.h \
     g_welcomedialog.h \
@@ -53,10 +59,19 @@ HEADERS  += g_gamewindow.h \
     GameCore/Headers/c_buyresourcesstate.h \
     GameCore/Headers/i_state.h \
     GameCore/Headers/statemachine.h \
-    GameCore/Headers/c_gamecontroller.h
+    GameCore/Headers/c_gamecontroller.h \
+    g_biddingwindows.h \
+    GameCore/Headers/c_resourcemarketview.h \
+    GameCore/Headers/c_buypowerplantstate.h \
+    GameCore/include/pugiconfig.hpp \
+    GameCore/include/pugixml.hpp \
+    GameCore/Headers/util.h \
+    g_biddingdialog.h
 
 FORMS    += g_gamewindow.ui \
     g_welcomedialog.ui \
     g_statingdialog.ui \
     g_playerinfoinitdialog.ui \
-    g_buyingresourcesdialog.ui
+    g_buyingresourcesdialog.ui \
+    g_biddingwindows.ui \
+    g_biddingdialog.ui

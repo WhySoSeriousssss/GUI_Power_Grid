@@ -1,4 +1,6 @@
 #include "c_deckdata.h"
+#include <QDir>
+#include <QApplication>
 
 //Junan: According to the rule, first 8 cards(number from 3 to 10) are put into the market,
 //       and then pick out the card number 13, shuffle all other cards, remove some cards
@@ -10,9 +12,9 @@
 //       then shuffle all the remaining cards in the deck.
 //       And since the deck is already randomized, so I simply discard the last 8 cards
 C_DeckData::C_DeckData() {
-    /*
+
     pugi::xml_document doc;
-    pugi::xml_parse_result result = doc.load_file("deck.xml");
+    doc.load_file("deck.xml");
 
     pugi::xml_node cardTemp = doc.child("deck").first_child();
 
@@ -45,7 +47,8 @@ C_DeckData::C_DeckData() {
         m_vDiscarded.push_back(m_vInDeck.back());
         m_vInDeck.pop_back();
     }
-    */
+
+
 }
 
 
@@ -118,14 +121,15 @@ C_CardData* C_DeckData::FindCardInHold(int number) {
         if (m_vInHold[i].GetNumber() == number)
             return &m_vInHold[i];
     }
+
 }
 
 
 std::vector<C_CardData> C_DeckData::GetMarket() {
-    return this->m_vInMarket;
+    return m_vInMarket;
 }
 
-/*void C_DeckData::Serialize(pugi::xml_node &parent) {
+void C_DeckData::Serialize(pugi::xml_node &parent) {
     auto inDeck = XMLAppendChild(parent, "in-deck");
     for (int i = 0; i < m_vInDeck.size(); i++) {
         auto card = XMLAppendChild(inDeck, "card");
@@ -162,4 +166,4 @@ std::vector<C_CardData> C_DeckData::GetMarket() {
         XMLAppendAttribute(card, "powers", m_vDiscarded[i].GetCitiesPowered());
     }
 }
-*/
+

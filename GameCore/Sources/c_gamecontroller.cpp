@@ -2,7 +2,7 @@
 
 // States
 //#include "CTurnOrderState.h"
-//#include "CBuyPowerPlantState.h"
+//#include "C_BuyPowerPlantState.h"
 //#include "c_buyresourcesstate.h"
 //#include "CBuildState.h"
 //#include "CBureaucracyState.h"
@@ -12,7 +12,7 @@
 
 C_GameController::C_GameController() {
     //m_States.push_back(new CTurnOrderState);
-    //m_States.push_back(new CBuyPowerPlantState);
+    //m_States.push_back(new C_BuyPowerPlantState);
     //m_States.push_back(new C_BuyResourcesState);
     //m_States.push_back(new CBuildState);
     //m_States.push_back(new CBureaucracyState);

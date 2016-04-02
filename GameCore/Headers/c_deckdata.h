@@ -13,13 +13,14 @@ public:
     void SetDeck(std::vector<C_CardData> deck1, std::vector<C_CardData> deck2, std::vector<C_CardData> deck3, std::vector<C_CardData> deck4);
 
     C_CardData* PlayerBuysCard(int index);
+
     void FillInMarket();
 
     C_CardData* FindCardInHold(int number);
 
     std::vector<C_CardData> GetMarket();
 
-//    void Serialize(pugi::xml_node &parent);
+    void Serialize(pugi::xml_node &parent);
 
 private:
     std::vector<C_CardData> m_vInDeck;

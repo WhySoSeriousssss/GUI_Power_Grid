@@ -14,7 +14,7 @@
 
 #include <math.h>
 
-//#include "util.h"
+#include "util.h"
 
 // MAT: Better idea right here..
 using std::list;
