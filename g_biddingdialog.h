@@ -17,7 +17,7 @@ public:
     explicit G_BiddingDialog(QWidget *parent = 0);
     ~G_BiddingDialog();
 
-    void Initialize(std::vector<C_PlayerData *> pBidders, std::vector<C_PlayerData *> pBList);
+    void Initialize(std::vector<C_PlayerData *>* pBidders, std::vector<C_PlayerData *>* pBList);
 
     void SetInitialDisplay(int cardNum);
 
@@ -31,8 +31,8 @@ private slots:
 private:
     Ui::G_BiddingDialog *ui;
 
-    std::vector<C_PlayerData *> biddersThisRound;
-    std::vector<C_PlayerData *> bidderList;
+    std::vector<C_PlayerData *>* biddersThisRound;
+    std::vector<C_PlayerData *>* bidderList;
 
     int currentBidder;
 

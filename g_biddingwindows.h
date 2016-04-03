@@ -47,7 +47,6 @@ private:
     std::vector<C_CardData> m_vPowerPlantMarket;
     C_DeckData* m_pDeck;
 
-    int round = 1;
     int biddingPrice, index;
 
     std::vector<C_PlayerData *> biddersThisRound;

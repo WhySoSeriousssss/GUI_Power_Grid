@@ -7,6 +7,7 @@ G_BiddingWindows::G_BiddingWindows(QWidget *parent) :
     ui(new Ui::G_BiddingWindows)
 {
     ui->setupUi(this);
+    ui->radioButton->setChecked(true);
 }
 
 G_BiddingWindows::~G_BiddingWindows()
@@ -58,74 +59,7 @@ void G_BiddingWindows::Start() {
     }
 
     SetDisplay(bidderList.front()->GetName(), bidderList.front()->GetMoney());
-    /*
-    while (bidderList.size() != 0) {
 
-
-        SetDisplay(bidderList.front()->GetName(), bidderList.front()->GetMoney());
-
-        biddersThisRound.clear();
-
-        std::cout << "Please type in the index(From 1 to 4, 0 represents abandon):\n";
-
-
-        if (GetEnter() == 2) {
-            std::cout << "Player " << bidderList.front()->GetName() << " abandoned bidding!\n";
-            bidderList.erase(bidderList.begin());
-            round++;
-            continue;
-        }
-        else {
-            index = biddingWds->GetCardNum();
-            biddingPrice = biddingWds->GetPrice();
-            biddingDlg.SetInitialDisplay(bidderList.front()->GetName(), index, biddingPrice);
-            biddingDlg.exec();
-            biddersThisRound.push_back(bidderList.front());
-        }
-
-
-        for (int i = 1; i < bidderList.size(); i++) {
-            biddingDlg.SetDisplay(bidderList[i]->GetName(), bidderList[i]->GetMoney(), biddingPrice);
-
-            if (biddingDlg.GetAbandon() == true) {
-                std::cout << "Player " << bidderList[i]->GetName() << " abandoned bidding!\n";
-            }
-            else {
-                biddingPrice = temp;
-                biddersThisRound.push_back(bidderList[i]);
-            }
-        }
-
-        while (biddersThisRound.size() > 1) {
-            for (int i = 0; i < biddersThisRound.size(); i++) {
-                std::cout << "Player " << bidderList[i]->GetName() << "'s turn to bid.\n";
-                std::cout << "Please type in your bidding price:\n";
-                int temp;
-                std::cin >> temp;
-                if (temp == 0) {
-                    std::cout << "Player " << bidderList[i]->GetName() << " abandoned bidding!\n";
-                    biddersThisRound.erase(biddersThisRound.begin() + i);
-                }
-                else {
-                    biddingPrice = temp;
-                }
-            }
-
-        }
-
-        std::cout << "Player " << biddersThisRound[0]->GetName() << " bought plant card finally!\n\n";
-        biddersThisRound[0]->ConsumeMoney(biddingPrice);
-        biddersThisRound[0]->BuyCard(pGameData->deck.PlayerBuysCard(index - 1));
-        for (int i = 0; i < bidderList.size(); i++) {
-            if (bidderList[i] == biddersThisRound[0]) {
-                bidderList.erase(bidderList.begin() + i);
-                break;
-            }
-        }
-        round++;
-
-    }
-    */
 }
 
 void G_BiddingWindows::on_pushButton_clicked()
@@ -142,26 +76,45 @@ void G_BiddingWindows::on_pushButton_clicked()
     else
         index = 3;
 
-    for (int i = 0; i < bidderList.size(); i++)
-        biddersThisRound.push_back(bidderList[i]);
-
-    biddingDlg.Initialize(this->biddersThisRound, this->bidderList);
-
-    biddingDlg.SetInitialDisplay(m_vPowerPlantMarket[index].GetNumber());
-    biddingDlg.exec();
-
-    if (biddingDlg.Accepted == 1) {
-        round++;
-    }
-    if (bidderList.size() == 0)
+    if (bidderList.size() == 1) {
+        std::cout << "Player " << bidderList[0]->GetName() << " bought the card #" << m_vPowerPlantMarket[index].GetNumber() << "\n";
+        bidderList[0]->ConsumeMoney(m_vPowerPlantMarket[index].GetNumber());
+        bidderList[0]->BuyCard(pGameData->deck.PlayerBuysCard(index));
+        bidderList.clear();
         this->close();
+    }
+    else {
+        for (int i = 0; i < bidderList.size(); i++)
+            biddersThisRound.push_back(bidderList[i]);
+
+        biddingDlg.Initialize(&this->biddersThisRound, &this->bidderList);
+
+        biddingDlg.SetInitialDisplay(m_vPowerPlantMarket[index].GetNumber());
+        biddingDlg.exec();
+
+        if (biddingDlg.Accepted == 1) {
+            std::cout << "Player " << biddersThisRound[0]->GetName() << " bought the card #" << m_vPowerPlantMarket[index].GetNumber() << "\n";
+            biddersThisRound[0]->ConsumeMoney(biddingPrice);
+            biddersThisRound[0]->BuyCard(pGameData->deck.PlayerBuysCard(index));
+            for (int i = 0; i < bidderList.size(); i++) {
+                if (bidderList[i] == biddersThisRound[0]) {
+                    bidderList.erase(bidderList.begin() + i);
+                    break;
+                }
+            }
+            biddersThisRound.clear();
+        }
+
+        Update();
+        SetDisplay(bidderList.front()->GetName(), bidderList.front()->GetMoney());
+    }
 }
 
 void G_BiddingWindows::on_pushButton_2_clicked()
 {
     std::cout << "Player " << bidderList.front()->GetName() << " abandoned bidding!\n";
     bidderList.erase(bidderList.begin());
-    round++;
+
     if (bidderList.size() != 0)
         SetDisplay(bidderList.front()->GetName(), bidderList.front()->GetMoney());
     else
