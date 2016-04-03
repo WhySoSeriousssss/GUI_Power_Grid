@@ -34,6 +34,8 @@ public:
     int GetCardNum();
     int GetPrice();
 
+    bool isClose();
+
 private slots:
     void on_pushButton_clicked();
 
@@ -51,6 +53,8 @@ private:
 
     std::vector<C_PlayerData *> biddersThisRound;
     std::vector<C_PlayerData *> bidderList;
+
+    bool isClosed;
 };
 
 #endif // G_BIDDINGWINDOWS_H

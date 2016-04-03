@@ -8,6 +8,7 @@ G_BiddingWindows::G_BiddingWindows(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->radioButton->setChecked(true);
+    isClosed = false;
 }
 
 G_BiddingWindows::~G_BiddingWindows()
@@ -52,6 +53,10 @@ int G_BiddingWindows::GetPrice() {
     return m_vPowerPlantMarket[index].GetNumber();
 }
 
+bool G_BiddingWindows::isClose() {
+    return isClosed;
+}
+
 void G_BiddingWindows::Start() {
 
     for (int i = 0; i < pGameData->playerList.size(); i++) {
@@ -81,6 +86,7 @@ void G_BiddingWindows::on_pushButton_clicked()
         bidderList[0]->ConsumeMoney(m_vPowerPlantMarket[index].GetNumber());
         bidderList[0]->BuyCard(pGameData->deck.PlayerBuysCard(index));
         bidderList.clear();
+        isClosed = true;
         this->close();
     }
     else {
@@ -117,6 +123,8 @@ void G_BiddingWindows::on_pushButton_2_clicked()
 
     if (bidderList.size() != 0)
         SetDisplay(bidderList.front()->GetName(), bidderList.front()->GetMoney());
-    else
+    else {
         this->close();
+        isClosed = true;
+    }
 }

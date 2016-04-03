@@ -8,6 +8,7 @@
 
 #include "c_buyresourcesstate.h"
 #include "c_buypowerplantstate.h"
+#include "c_bureaucracystate.h"
 
 #include <QApplication>
 #include <iostream>
@@ -19,6 +20,7 @@ int main(int argc, char *argv[])
     G_WelcomeDialog wd;
 
     C_BuyPowerPlantState state;
+    C_BureaucracyState state2;
 
     wd.exec();
     if (wd.GetMenuOption() == MENU_NEW_GAME) {
@@ -30,6 +32,7 @@ int main(int argc, char *argv[])
 
         state.Start();
        \
+        state2.Start();
     }
 
 

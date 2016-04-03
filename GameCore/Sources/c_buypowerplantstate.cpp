@@ -17,6 +17,7 @@ void C_BuyPowerPlantState::Start() {
     biddingWds->Start();
     biddingWds->show();
 
+
 //	m_pOwner->NextPhase();
 }
 
