@@ -35,10 +35,6 @@ void G_BiddingDialog::SetInitialDisplay(int cardNum) {
     ui->textBrowser->append(info2);
 }
 
-int G_BiddingDialog::GetBiddingPrice() {
-    return biddingPrice;
-}
-
 void G_BiddingDialog::on_pushButton_clicked()
 {
     QString info;
@@ -52,12 +48,16 @@ void G_BiddingDialog::on_pushButton_clicked()
     ui->spinBox->setMinimum(biddingPrice + 1);
     ui->spinBox->setMaximum((*biddersThisRound)[currentBidder]->GetMoney());
 
+    /*
     if ((*biddersThisRound).size() == 1) {
         info = "Player " + QString::fromStdString((*biddersThisRound)[0]->GetName()) + " bought this card.";
         ui->textBrowser->append(info);
+        biddersThisRound[0]->ConsumeMoney(biddingPrice);
+
         // for clearly seeing the test result, you can commend line the following code
         this->accept();
     }
+    */
 }
 
 void G_BiddingDialog::on_pushButton_2_clicked()
@@ -73,8 +73,9 @@ void G_BiddingDialog::on_pushButton_2_clicked()
         info = "Player " + QString::fromStdString((*biddersThisRound)[0]->GetName()) + " bought this card.";
         ui->textBrowser->append(info);
 
+        (*biddersThisRound)[0]->ConsumeMoney(biddingPrice);
         // for clearly seeing the test result, you can commend line the following code
-     //   this->accept();
+        this->accept();
     }
 
     ui->label_2->setText(QString::fromStdString((*biddersThisRound)[currentBidder]->GetName()));

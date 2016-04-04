@@ -19,10 +19,33 @@ public:
 
     void Initialize(C_PlayerData* p);
 
+    void RealTimeUpdate(int cardIndex);
+
+    void RealTimeClear(int cardIndex);
+
+    bool TestEnoughFuel(int cardIndex);
+
+private slots:
+
+
+    void on_checkBox_clicked(bool checked);
+
+    void on_checkBox_2_clicked(bool checked);
+
+    void on_checkBox_3_clicked(bool checked);
+
+    void on_pushButton_clicked();
+
 private:
     Ui::G_BureaucracyDialog *ui;
 
     C_PlayerData* player;
+
+    int coalDecrease;
+    int oilDecrease;
+    int garbageDecrease;
+    int uraniumDecrease;
+
 };
 
 #endif // G_BUREAUCRACYDIALOG_H

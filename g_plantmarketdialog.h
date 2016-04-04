@@ -1,7 +1,7 @@
-#ifndef G_BIDDINGWINDOWS_H
-#define G_BIDDINGWINDOWS_H
+#ifndef G_PLANTMARKETDIALOG_H
+#define G_PLANTMARKETDIALOG_H
 
-#include <QMainWindow>
+#include <QDialog>
 
 #include "i_subject.h"
 
@@ -11,16 +11,16 @@
 #include "g_biddingdialog.h"
 
 namespace Ui {
-class G_BiddingWindows;
+class G_PlantMarketDialog;
 }
 
-class G_BiddingWindows : public QMainWindow, public I_Subject
+class G_PlantMarketDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit G_BiddingWindows(QWidget *parent = 0);
-    ~G_BiddingWindows();
+    explicit G_PlantMarketDialog(QWidget *parent = 0);
+    ~G_PlantMarketDialog();
 
     void Initialize(C_DeckData *pData);
 
@@ -30,31 +30,21 @@ public:
 
     void Start();
 
-    int GetEnter();
-    int GetCardNum();
-    int GetPrice();
-
-    bool isClose();
-
 private slots:
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
 
 private:
-    Ui::G_BiddingWindows *ui;
+    Ui::G_PlantMarketDialog *ui;
 
-    int enter;
-
-    std::vector<C_CardData> m_vPowerPlantMarket;
+    std::vector<C_CardData*>* m_vPowerPlantMarket;
     C_DeckData* m_pDeck;
 
     int biddingPrice, index;
 
     std::vector<C_PlayerData *> biddersThisRound;
     std::vector<C_PlayerData *> bidderList;
-
-    bool isClosed;
 };
 
-#endif // G_BIDDINGWINDOWS_H
+#endif // G_PLANTMARKETDIALOG_H

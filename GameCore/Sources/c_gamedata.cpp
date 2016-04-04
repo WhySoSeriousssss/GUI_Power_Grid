@@ -123,3 +123,7 @@ BuyResults_e C_GameData::PlayerAttemptsToBuyResource(int playerNum, int resource
         break;
     }
 }
+
+void C_GameData::PlayerBuysCard(int cardIndex) {
+
+}

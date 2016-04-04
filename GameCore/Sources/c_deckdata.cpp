@@ -2,41 +2,31 @@
 #include <QDir>
 #include <QApplication>
 
-//Junan: According to the rule, first 8 cards(number from 3 to 10) are put into the market,
-//       and then pick out the card number 13, shuffle all other cards, remove some cards
-//       (Here I have 2 versions, 1 is to remove 8 cards, the other is to remove n cards, n
-//       is the number of players. I use first version for now.), put the 13 card to the top
-//       of the deck.
-//       I used a trick in the deck.xml to make it easier to implement: put the node of card 13
-//       right after the card 10, such that to make sure the first card in the deck is 13. And
-//       then shuffle all the remaining cards in the deck.
-//       And since the deck is already randomized, so I simply discard the last 8 cards
 C_DeckData::C_DeckData() {
 
     pugi::xml_document doc;
     doc.load_file("deck.xml");
 
-    pugi::xml_node cardTemp = doc.child("deck").first_child();
+    pugi::xml_node cardTemp = doc.child("deck");
+
+    //put all cards in the AllCards Vector
+    for (pugi::xml_node card = cardTemp.first_child(); card; card = card.next_sibling()) {
+        m_vAllCards.push_back(C_CardData(
+            XMLParseInt(card.attribute("number")),
+            XMLParseInt(card.attribute("cost")),
+            XMLParseInt(card.attribute("payment")),
+            XMLParseInt(card.attribute("powers"))
+            ));
+    }
 
     //put the first 8 cards into the market
     for (int i = 0; i < 8; i++) {
-        m_vInMarket.push_back(C_CardData(
-            XMLParseInt(cardTemp.attribute("number")),
-            XMLParseInt(cardTemp.attribute("cost")),
-            XMLParseInt(cardTemp.attribute("payment")),
-            XMLParseInt(cardTemp.attribute("powers"))
-            ));
-        cardTemp = cardTemp.next_sibling();
+        m_vInMarket.push_back(&m_vAllCards[i]);
     }
 
     //put the remaining cards in the deck
-    for (; cardTemp; cardTemp = cardTemp.next_sibling()) {
-        m_vInDeck.push_back(C_CardData(
-            XMLParseInt(cardTemp.attribute("number")),
-            XMLParseInt(cardTemp.attribute("cost")),
-            XMLParseInt(cardTemp.attribute("payment")),
-            XMLParseInt(cardTemp.attribute("powers"))
-            ));
+    for (int i = 8; i < m_vAllCards.size(); i++) {
+        m_vInDeck.push_back(&m_vAllCards[i]);
     }
 
     //shuffle the deck except card 13, so that card 13 is still on the top of the deck
@@ -48,11 +38,10 @@ C_DeckData::C_DeckData() {
         m_vInDeck.pop_back();
     }
 
-
 }
 
 
-void C_DeckData::SetDeck(std::vector<C_CardData> deck1, std::vector<C_CardData> deck2, std::vector<C_CardData> deck3, std::vector<C_CardData> deck4) {
+void C_DeckData::SetDeck(std::vector<C_CardData*> deck1, std::vector<C_CardData*> deck2, std::vector<C_CardData*> deck3, std::vector<C_CardData*> deck4) {
     m_vInDeck = deck1;
     m_vInMarket = deck2;
     m_vInHold = deck3;
@@ -70,16 +59,18 @@ C_DeckData::~C_DeckData() {
 //        and insert it into the right position of the market vector.
 C_CardData* C_DeckData::PlayerBuysCard(int index) {
 
+    //put this card in the inHold Vector
     m_vInHold.push_back(m_vInMarket[index]);
-    C_CardData* card = &m_vInHold.back();
 
+    //erase that card from market
     m_vInMarket.erase(m_vInMarket.begin() + index);
 
-    auto newCard = m_vInDeck[0];
+    C_CardData* newCard = m_vInDeck[0];
     m_vInDeck.erase(m_vInDeck.begin());
+
     int pos = 0;
     for (int i = 0; i < m_vInMarket.size(); i++) {
-        if (m_vInMarket[i].GetNumber() < newCard.GetNumber())
+        if (m_vInMarket[i]->GetNumber() < newCard->GetNumber())
             pos++;
         else
             break;
@@ -87,7 +78,7 @@ C_CardData* C_DeckData::PlayerBuysCard(int index) {
     m_vInMarket.insert(m_vInMarket.begin() + pos, newCard);
 
     Notify();
-    return card;
+    return m_vInHold.back();
 }
 
 
@@ -101,11 +92,11 @@ void C_DeckData::FillInMarket() {
     m_vDiscarded.push_back(m_vInMarket[0]);
     m_vInMarket.erase(m_vInMarket.begin());
 
-    auto card = m_vInDeck[0];
+    C_CardData* card = m_vInDeck[0];
     m_vInDeck.erase(m_vInDeck.begin());
     int pos = 0;
     for (int i = 0; i < m_vInMarket.size(); i++) {
-        if (m_vInMarket[i].GetNumber() < card.GetNumber())
+        if (m_vInMarket[i]->GetNumber() < card->GetNumber())
             pos++;
         else
             break;
@@ -118,52 +109,52 @@ void C_DeckData::FillInMarket() {
 //Junan: this function is for loading pattern.
 C_CardData* C_DeckData::FindCardInHold(int number) {
     for (int i = 0; i < m_vInHold.size(); i++) {
-        if (m_vInHold[i].GetNumber() == number)
-            return &m_vInHold[i];
+        if (m_vInHold[i]->GetNumber() == number)
+            return m_vInHold[i];
     }
 
 }
 
 
-std::vector<C_CardData> C_DeckData::GetMarket() {
-    return m_vInMarket;
+std::vector<C_CardData*>* C_DeckData::GetMarket() {
+    return &m_vInMarket;
 }
 
 void C_DeckData::Serialize(pugi::xml_node &parent) {
     auto inDeck = XMLAppendChild(parent, "in-deck");
     for (int i = 0; i < m_vInDeck.size(); i++) {
         auto card = XMLAppendChild(inDeck, "card");
-        XMLAppendAttribute(card, "number", m_vInDeck[i].GetNumber());
-        XMLAppendAttribute(card, "cost", m_vInDeck[i].GetCost());
-        XMLAppendAttribute(card, "payment", m_vInDeck[i].GetResources());
-        XMLAppendAttribute(card, "powers", m_vInDeck[i].GetCitiesPowered());
+        XMLAppendAttribute(card, "number", m_vInDeck[i]->GetNumber());
+        XMLAppendAttribute(card, "cost", m_vInDeck[i]->GetCost());
+        XMLAppendAttribute(card, "payment", m_vInDeck[i]->GetResources());
+        XMLAppendAttribute(card, "powers", m_vInDeck[i]->GetCitiesPowered());
     }
 
     auto inMarket = XMLAppendChild(parent, "in-market");
     for (int i = 0; i < m_vInMarket.size(); i++) {
         auto card = XMLAppendChild(inMarket, "card");
-        XMLAppendAttribute(card, "number", m_vInMarket[i].GetNumber());
-        XMLAppendAttribute(card, "cost", m_vInMarket[i].GetCost());
-        XMLAppendAttribute(card, "payment", m_vInMarket[i].GetResources());
-        XMLAppendAttribute(card, "powers", m_vInMarket[i].GetCitiesPowered());
+        XMLAppendAttribute(card, "number", m_vInMarket[i]->GetNumber());
+        XMLAppendAttribute(card, "cost", m_vInMarket[i]->GetCost());
+        XMLAppendAttribute(card, "payment", m_vInMarket[i]->GetResources());
+        XMLAppendAttribute(card, "powers", m_vInMarket[i]->GetCitiesPowered());
     }
 
     auto inHold = XMLAppendChild(parent, "in-hold");
     for (int i = 0; i < m_vInHold.size(); i++) {
         auto card = XMLAppendChild(inHold, "card");
-        XMLAppendAttribute(card, "number", m_vInHold[i].GetNumber());
-        XMLAppendAttribute(card, "cost", m_vInHold[i].GetCost());
-        XMLAppendAttribute(card, "payment", m_vInHold[i].GetResources());
-        XMLAppendAttribute(card, "powers", m_vInHold[i].GetCitiesPowered());
+        XMLAppendAttribute(card, "number", m_vInHold[i]->GetNumber());
+        XMLAppendAttribute(card, "cost", m_vInHold[i]->GetCost());
+        XMLAppendAttribute(card, "payment", m_vInHold[i]->GetResources());
+        XMLAppendAttribute(card, "powers", m_vInHold[i]->GetCitiesPowered());
     }
 
     auto inDiscarded = XMLAppendChild(parent, "in-discarded");
     for (int i = 0; i < m_vDiscarded.size(); i++) {
         auto card = XMLAppendChild(inDiscarded, "card");
-        XMLAppendAttribute(card, "number", m_vDiscarded[i].GetNumber());
-        XMLAppendAttribute(card, "cost", m_vDiscarded[i].GetCost());
-        XMLAppendAttribute(card, "payment", m_vDiscarded[i].GetResources());
-        XMLAppendAttribute(card, "powers", m_vDiscarded[i].GetCitiesPowered());
+        XMLAppendAttribute(card, "number", m_vDiscarded[i]->GetNumber());
+        XMLAppendAttribute(card, "cost", m_vDiscarded[i]->GetCost());
+        XMLAppendAttribute(card, "payment", m_vDiscarded[i]->GetResources());
+        XMLAppendAttribute(card, "powers", m_vDiscarded[i]->GetCitiesPowered());
     }
 }
 

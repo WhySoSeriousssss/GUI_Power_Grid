@@ -6,6 +6,7 @@ G_BuyingResourcesDialog::G_BuyingResourcesDialog(QWidget *parent) :
     ui(new Ui::G_BuyingResourcesDialog)
 {
     ui->setupUi(this);
+    tempCost = 0;
 }
 
 G_BuyingResourcesDialog::~G_BuyingResourcesDialog()
@@ -13,41 +14,39 @@ G_BuyingResourcesDialog::~G_BuyingResourcesDialog()
     delete ui;
 }
 
-void G_BuyingResourcesDialog::SetResourceMarket(int coal, int oil, int garbage, int uranium, int coalPrice, int oilPrice, int garbagePrice, int uraniumPrice) {
-    for (int i = 0; i <= coal; i++) {
-        ui->comboBox->addItem(QString::number(i), i);
-    }
-    for (int i = 0; i <= oil; i++) {
-        ui->comboBox_2->addItem(QString::number(i), i);
-    }
-    for (int i = 0; i <= garbage; i++) {
-        ui->comboBox_3->addItem(QString::number(i), i);
-    }
-    for (int i = 0; i <= uranium; i++) {
-        ui->comboBox_4->addItem(QString::number(i), i);
-    }
+void G_BuyingResourcesDialog::Initialize(C_PlayerData *p, C_ResourceMarket *m) {
+    player = p;
+    market = m;
 
-    ui->label_8->setText(QString::number(coalPrice));
-    ui->label_9->setText(QString::number(oilPrice));
-    ui->label_10->setText(QString::number(garbagePrice));
-    ui->label_11->setText(QString::number(uraniumPrice));
-}
+    //set amount of resources
+    ui->label_16->setText(QString::number(market->GetCoal()));
+    ui->label_17->setText(QString::number(market->GetOil()));
+    ui->label_18->setText(QString::number(market->GetGarbage()));
+    ui->label_19->setText(QString::number(market->GetUranium()));
 
-void G_BuyingResourcesDialog::SetDisplay(std::string name, int money) {
-    QString name_qstr = QString::fromStdString(name);
-    QString money_qstr = QString::number(money);
+    //set price of resources
+    ui->label_8->setText(QString::number(market->GetCostOfCoal()));
+    ui->label_9->setText(QString::number(market->GetCostOfOil()));
+    ui->label_10->setText(QString::number(market->GetCostOfGarbage()));
+    ui->label_11->setText(QString::number(market->GetCostOfUranium()));
 
-    ui->label_12->setText(name_qstr);
-    ui->label_13->setText(money_qstr);
+    //set player info
+    ui->label_12->setText(QString::fromStdString(player->GetName()));
+    ui->label_13->setText(QString::number(player->GetMoney()));
+
+    //set quantity limits
+    ui->spinBox->setMaximum(player->GetMaxCoal());
+    ui->spinBox_2->setMaximum(player->GetMaxOil());
+    ui->spinBox_3->setMaximum(player->GetMaxGarbage());
+    ui->spinBox_4->setMaximum(player->GetMaxUranium());
 }
 
 int* G_BuyingResourcesDialog::GetBuyingQuantities() {
     int* qt = new int[4];
-    qt[0] = ui->comboBox->currentIndex();
-    qt[1] = ui->comboBox_2->currentIndex();
-    qt[2] = ui->comboBox_3->currentIndex();
-    qt[3] = ui->comboBox_4->currentIndex();
-
+    qt[0] = ui->spinBox->value();
+    qt[1] = ui->spinBox_2->value();
+    qt[2] = ui->spinBox_3->value();
+    qt[3] = ui->spinBox_4->value();
     return qt;
 }
 

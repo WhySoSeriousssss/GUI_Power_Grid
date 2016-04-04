@@ -40,6 +40,8 @@ public:
 
     BuyResults_e PlayerAttemptsToBuyResource(int playerNum, int resourceType);
 
+    void PlayerBuysCard(int cardIndex);
+
     //Junan: for testing
     void Print();
 };

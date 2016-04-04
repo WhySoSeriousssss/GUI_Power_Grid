@@ -1,29 +1,28 @@
 #include "c_gamecontroller.h"
 #include "C_BuyPowerPlantState.h"
-
+#include <QEventLoop>
 
 C_BuyPowerPlantState::C_BuyPowerPlantState() :
-    biddingWds(new G_BiddingWindows){
+    marketDlg(new G_PlantMarketDialog){
 
 }
 
 C_BuyPowerPlantState::~C_BuyPowerPlantState() {
-    delete biddingWds;
+
 }
 
 void C_BuyPowerPlantState::Start() {
     std::cout << "Start Buy Power Plant State.\n\n";
 
-    biddingWds->Start();
-    biddingWds->show();
-
+    marketDlg->Start();
+    marketDlg->exec();
 
 //	m_pOwner->NextPhase();
 }
 
 void C_BuyPowerPlantState::Enter() {
     std::cout << "Entering Buy Power Plant State\n";
-    biddingWds->Initialize(&pGameData->deck);
+    marketDlg->Initialize(&pGameData->deck);
 }
 
 void C_BuyPowerPlantState::Exit() {

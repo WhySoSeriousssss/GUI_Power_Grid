@@ -31,14 +31,17 @@ SOURCES += main.cpp\
     g_buyingresourcesdialog.cpp \
     GameCore/Sources/c_buyresourcesstate.cpp \
     GameCore/Sources/c_gamecontroller.cpp \
-    g_biddingwindows.cpp \
     GameCore/Sources/c_resourcemarketview.cpp \
     GameCore/Sources/c_buypowerplantstate.cpp \
     GameCore/include/pugixml.cpp \
     GameCore/util.cpp \
     g_biddingdialog.cpp \
     g_bureaucracydialog.cpp \
-    GameCore/Sources/c_bureaucracystate.cpp
+    GameCore/Sources/c_bureaucracystate.cpp \
+    GameCore/Sources/c_statemachine.cpp \
+    GameCore/Sources/c_buildstate.cpp \
+    GameCore/Sources/c_turnorderstate.cpp \
+    g_plantmarketdialog.cpp
 
 HEADERS  += g_gamewindow.h \
     g_welcomedialog.h \
@@ -62,7 +65,6 @@ HEADERS  += g_gamewindow.h \
     GameCore/Headers/i_state.h \
     GameCore/Headers/statemachine.h \
     GameCore/Headers/c_gamecontroller.h \
-    g_biddingwindows.h \
     GameCore/Headers/c_resourcemarketview.h \
     GameCore/Headers/c_buypowerplantstate.h \
     GameCore/include/pugiconfig.hpp \
@@ -70,13 +72,17 @@ HEADERS  += g_gamewindow.h \
     GameCore/Headers/util.h \
     g_biddingdialog.h \
     g_bureaucracydialog.h \
-    GameCore/Headers/c_bureaucracystate.h
+    GameCore/Headers/c_bureaucracystate.h \
+    GameCore/Headers/c_statemachine.h \
+    GameCore/Headers/c_buildstate.h \
+    GameCore/Headers/c_turnorderstate.h \
+    g_plantmarketdialog.h
 
 FORMS    += g_gamewindow.ui \
     g_welcomedialog.ui \
     g_statingdialog.ui \
     g_playerinfoinitdialog.ui \
     g_buyingresourcesdialog.ui \
-    g_biddingwindows.ui \
     g_biddingdialog.ui \
-    g_bureaucracydialog.ui
+    g_bureaucracydialog.ui \
+    g_plantmarketdialog.ui

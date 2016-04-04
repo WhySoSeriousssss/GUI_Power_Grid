@@ -21,8 +21,6 @@ public:
 
     void SetInitialDisplay(int cardNum);
 
-    int GetBiddingPrice();
-
 private slots:
     void on_pushButton_clicked();
 

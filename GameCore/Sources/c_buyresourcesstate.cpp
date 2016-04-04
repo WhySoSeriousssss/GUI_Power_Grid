@@ -13,18 +13,7 @@ void C_BuyResourcesState::Start() {
     for (int i = (int)pGameData->playerList.size() - 1; i >= 0; i--) {
         G_BuyingResourcesDialog* buyResourcesDlg = new G_BuyingResourcesDialog();
 
-        int coal = m_pMarket->GetCoal();
-        int oil = m_pMarket->GetOil();
-        int garbage = m_pMarket->GetGarbage();
-        int uranium = m_pMarket->GetUranium();
-
-        int coalPrice = m_pMarket->GetCostOfCoal();
-        int oilPrice = m_pMarket->GetCostOfOil();
-        int garbagePrice = m_pMarket->GetCostOfGarbage();
-        int uraniumPrice = m_pMarket->GetCostOfUranium();
-
-        buyResourcesDlg->SetResourceMarket(coal, oil, garbage, uranium, coalPrice, oilPrice, garbagePrice, uraniumPrice);
-        buyResourcesDlg->SetDisplay(pGameData->playerList[i].GetName(), pGameData->playerList[i].GetMoney());
+        buyResourcesDlg->Initialize(&pGameData->playerList[i], &pGameData->market);
         buyResourcesDlg->exec();
 
         if (buyResourcesDlg->Accepted == 1) {

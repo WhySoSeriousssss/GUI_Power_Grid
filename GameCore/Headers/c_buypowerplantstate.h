@@ -12,7 +12,7 @@
 #include "c_deckview.h"
 #include "c_gamedata.h"
 
-#include "g_biddingwindows.h"
+#include "g_plantmarketdialog.h"
 #include "g_biddingdialog.h"
 
 #include "base.h"
@@ -28,7 +28,7 @@ public:
     void Exit();
 
 private:
-    G_BiddingWindows* biddingWds;
+    G_PlantMarketDialog *marketDlg;
 
 };
 

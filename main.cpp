@@ -1,7 +1,6 @@
 #include "g_gamewindow.h"
 #include "g_statingdialog.h"
 #include "g_welcomedialog.h"
-#include "g_biddingwindows.h"
 
 #include "c_menudata.h"
 #include "c_gamedata.h"
@@ -20,6 +19,7 @@ int main(int argc, char *argv[])
     G_WelcomeDialog wd;
 
     C_BuyPowerPlantState state;
+    C_BuyResourcesState state1;
     C_BureaucracyState state2;
 
     wd.exec();
@@ -29,10 +29,15 @@ int main(int argc, char *argv[])
         w.show();
 
         state.Enter();
-
         state.Start();
-       \
+
+        state1.Enter();
+        state1.Start();
+
+        state2.Enter();
         state2.Start();
+
+
     }
 
 

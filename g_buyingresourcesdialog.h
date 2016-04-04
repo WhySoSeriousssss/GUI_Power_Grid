@@ -3,6 +3,9 @@
 
 #include <QDialog>
 
+#include "c_playerdata.h"
+#include "c_resourcemarketdata.h"
+
 namespace Ui {
 class G_BuyingResourcesDialog;
 }
@@ -15,9 +18,7 @@ public:
     explicit G_BuyingResourcesDialog(QWidget *parent = 0);
     ~G_BuyingResourcesDialog();
 
-    void SetResourceMarket(int coal, int oil, int garbage, int uranium, int coalPrice, int oilPrice, int garbagePrice, int uraniumPrice);
-
-    void SetDisplay(std::string name, int money);
+    void Initialize(C_PlayerData *p, C_ResourceMarket *m);
 
     int* GetBuyingQuantities();
 
@@ -26,6 +27,11 @@ private slots:
 
 private:
     Ui::G_BuyingResourcesDialog *ui;
+
+    C_PlayerData *player;
+    C_ResourceMarket *market;
+
+    int tempCost;
 };
 
 #endif // G_BUYINGRESOURCESDIALOG_H
