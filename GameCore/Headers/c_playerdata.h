@@ -71,7 +71,7 @@ public:
 
     int GetIncome();
 
-    //void Serialize(pugi::xml_node &parent);
+    void Serialize(pugi::xml_node &parent);
 
 private:
     string m_sName;

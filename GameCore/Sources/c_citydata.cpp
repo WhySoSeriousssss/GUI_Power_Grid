@@ -36,10 +36,7 @@ string C_CityData::GetNeighbours() {
 }
 
 void C_CityData::AddNeighbour(std::string name, int cost) {
-    // MAT: Im very surprised this works LOL
-    //std::cout << name << ": " << cost << std::endl;
     m_vConnections.insert({ name, cost });
-
 }
 
 void C_CityData::IncreaseCount() {

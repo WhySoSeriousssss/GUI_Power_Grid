@@ -321,7 +321,7 @@ int C_PlayerData::GetIncome() {
     return income;
 }
 
-/*void C_PlayerData::Serialize(pugi::xml_node &parent) {
+void C_PlayerData::Serialize(pugi::xml_node &parent) {
     auto player = XMLAppendChild(parent, "player");
     XMLAppendAttribute(player, "name", GetName());
     XMLAppendAttribute(player, "money", GetMoney());
@@ -341,4 +341,4 @@ int C_PlayerData::GetIncome() {
         XMLAppendAttribute(house, "cityName", m_vHouse[i].GetCity()->GetName());
     }
 
-}*/
+}

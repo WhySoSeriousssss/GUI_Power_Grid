@@ -5,8 +5,7 @@
 #include "c_playerdata.h"
 #include "c_deckdata.h"
 #include "c_resourcemarketdata.h"
-//#include "C_MapData.h"
-//#include "C_ResourceMarketView.h"
+#include "C_MapData.h"
 
 #include "base.h"
 
@@ -32,15 +31,12 @@ public:
     C_DeckData deck;
 
     C_ResourceMarket market;
-//    C_ResourceMarketView marketView;
 
-//    C_MapData map;
+    C_MapData map;
 
     void Initialize();
 
     BuyResults_e PlayerAttemptsToBuyResource(int playerNum, int resourceType);
-
-    void PlayerBuysCard(int cardIndex);
 
     //Junan: for testing
     void Print();

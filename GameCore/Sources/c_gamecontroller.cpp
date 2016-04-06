@@ -4,7 +4,7 @@
 //#include "C_TurnOrderState.h"
 //#include "C_BuyPowerPlantState.h"
 //#include "c_buyresourcesstate.h"
-//#include "CBuildState.h"
+//#include "C_BuildState.h"
 //#include "C_BureaucracyState.h"
 
 // Model
@@ -14,7 +14,7 @@ C_GameController::C_GameController() {
     //m_States.push_back(new C_TurnOrderState);
     //m_States.push_back(new C_BuyPowerPlantState);
     //m_States.push_back(new C_BuyResourcesState);
-    //m_States.push_back(new CBuildState);
+    //m_States.push_back(new C_BuildState);
     //m_States.push_back(new C_BureaucracyState);
 
     //for (auto it = m_States.begin(); it != m_States.end(); it++) {

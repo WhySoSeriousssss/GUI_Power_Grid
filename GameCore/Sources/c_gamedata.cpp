@@ -6,7 +6,7 @@ C_GameData *pGameData = &_gameData;
 C_GameData::C_GameData() :
     currentRound(0),
     currentTime(0.0f) {
-    //map.LoadMap("map_canada.xml");
+    map.LoadMap("map_canada.xml");
 }
 
 void C_GameData::Print() {
@@ -122,8 +122,4 @@ BuyResults_e C_GameData::PlayerAttemptsToBuyResource(int playerNum, int resource
     default:
         break;
     }
-}
-
-void C_GameData::PlayerBuysCard(int cardIndex) {
-
 }

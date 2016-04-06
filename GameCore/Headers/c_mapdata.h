@@ -13,13 +13,16 @@ public:
 
     void LoadMap(std::string path);
 
- //   void Serialize(pugi::xml_node &parent);
-    void AddCity(std::string name, std::string region);
+    void Serialize(pugi::xml_node &parent);
+
     void DisplayCities();
-    C_CityData GetCityByName(std::string name);
+
+    C_CityData* GetCityByName(std::string name);
+
+    std::vector<C_CityData*>* GetCities();
 
 private:
-    std::vector<C_CityData> m_vCities;
+    std::vector<C_CityData*> m_vCities;
 };
 
 #endif // C_MAPDATA_H

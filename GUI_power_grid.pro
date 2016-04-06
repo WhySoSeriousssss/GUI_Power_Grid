@@ -41,7 +41,8 @@ SOURCES += main.cpp\
     GameCore/Sources/c_statemachine.cpp \
     GameCore/Sources/c_buildstate.cpp \
     GameCore/Sources/c_turnorderstate.cpp \
-    g_plantmarketdialog.cpp
+    g_plantmarketdialog.cpp \
+    g_buildingdialog.cpp
 
 HEADERS  += g_gamewindow.h \
     g_welcomedialog.h \
@@ -76,7 +77,8 @@ HEADERS  += g_gamewindow.h \
     GameCore/Headers/c_statemachine.h \
     GameCore/Headers/c_buildstate.h \
     GameCore/Headers/c_turnorderstate.h \
-    g_plantmarketdialog.h
+    g_plantmarketdialog.h \
+    g_buildingdialog.h
 
 FORMS    += g_gamewindow.ui \
     g_welcomedialog.ui \
@@ -85,4 +87,5 @@ FORMS    += g_gamewindow.ui \
     g_buyingresourcesdialog.ui \
     g_biddingdialog.ui \
     g_bureaucracydialog.ui \
-    g_plantmarketdialog.ui
+    g_plantmarketdialog.ui \
+    g_buildingdialog.ui
