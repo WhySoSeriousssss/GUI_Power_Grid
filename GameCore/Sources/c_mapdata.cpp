@@ -46,10 +46,3 @@ std::vector<C_CityData*>* C_MapData::GetCities() {
     return &m_vCities;
 }
 
-void C_MapData::DisplayCities() {
-    for (C_CityData* city : m_vCities) {
-        std::cout << "City: " << city->GetName() << ", " << city->GetRegion() << std::endl;
-        std::cout << "\tNeighbours: " << city->GetNeighbours();
-        std::cout << "\n";
-    }
-}

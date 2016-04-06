@@ -61,9 +61,9 @@ public:
     std::vector<C_CardData *> GetCard();
     const std::vector<C_CardData *> GetCard() const;
 
-    void BuyCard(C_CardData* card);
+    bool BuyCard(C_CardData* card);
 
-    void BuyCity(C_CityData* city);
+    bool BuyCity(C_CityData* city);
 
     void ConsumeMoney(int amount);
 

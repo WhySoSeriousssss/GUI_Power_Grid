@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
     C_BureaucracyState state3;
 
     wd.exec();
+
     if (wd.GetMenuOption() == MENU_NEW_GAME) {
 
         pGameData->Initialize();

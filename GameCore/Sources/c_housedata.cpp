@@ -18,7 +18,3 @@ C_HouseData::~C_HouseData() {
 C_CityData* C_HouseData::GetCity() {
     return city;
 }
-
-const C_CityData* C_HouseData::GetCity() const{
-    return city;
-}

@@ -15,8 +15,6 @@ public:
 
     void Serialize(pugi::xml_node &parent);
 
-    void DisplayCities();
-
     C_CityData* GetCityByName(std::string name);
 
     std::vector<C_CityData*>* GetCities();

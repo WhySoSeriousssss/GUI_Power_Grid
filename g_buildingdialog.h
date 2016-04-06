@@ -3,6 +3,7 @@
 
 #include <QDialog>
 
+#include "c_gamedata.h"
 #include "c_mapdata.h"
 #include "c_playerdata.h"
 
@@ -18,7 +19,7 @@ public:
     explicit G_BuildingDialog(QWidget *parent = 0);
     ~G_BuildingDialog();
 
-    void Initialize(C_MapData *map, C_PlayerData* player);
+    void G_BuildingDialog::Initialize(C_MapData *pMap, C_PlayerData* player);
 
 private slots:
     void on_pushButton_clicked();
@@ -30,9 +31,8 @@ private slots:
 private:
     Ui::G_BuildingDialog *ui;
 
-    C_MapData* map;
     C_PlayerData* player;
-
+    C_MapData* map;
 };
 
 #endif // G_BUILDINGDIALOG_H

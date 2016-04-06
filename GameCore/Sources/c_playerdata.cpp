@@ -144,37 +144,49 @@ const std::vector<C_CardData *> C_PlayerData::GetCard() const {
     return m_vCard;
 }
 
-void C_PlayerData::BuyCard(C_CardData* card) {
-    m_vCard.push_back(card);
+bool C_PlayerData::BuyCard(C_CardData* card) {
     int num = card->GetCost();
-    int resource = card->GetResources();
-    switch (resource)
-    {
-    case 1:
-        m_iMaxCoal += num * 2;
-        break;
-    case 10:
-        m_iMaxOil += num * 2;
-        break;
-    case 11:
-        m_iMaxCoal += num * 2;
-        m_iMaxOil += num * 2;
-        break;
-    case 100:
-        m_iMaxGarbage += num * 2;
-        break;
-    case 1000:
-        m_iMaxUranium += num * 2;
-        break;
-    default:
-        break;
+
+    if (m_iMoney < num)
+        return false;
+    else {
+        m_vCard.push_back(card);
+
+        int resource = card->GetResources();
+        switch (resource)
+        {
+        case 1:
+            m_iMaxCoal += num * 2;
+            break;
+        case 10:
+            m_iMaxOil += num * 2;
+            break;
+        case 11:
+            m_iMaxCoal += num * 2;
+            m_iMaxOil += num * 2;
+            break;
+        case 100:
+            m_iMaxGarbage += num * 2;
+            break;
+        case 1000:
+            m_iMaxUranium += num * 2;
+            break;
+        default:
+            break;
+        }
+        return true;
     }
 }
 
-void C_PlayerData::BuyCity(C_CityData* city) {
-    C_HouseData newHouse(city);
-    m_vHouse.push_back(newHouse);
-    m_iMoney -= city->GetCost();
+bool C_PlayerData::BuyCity(C_CityData* city) {
+    if (m_iMoney < city->GetCost())
+        return false;
+    else {
+        C_HouseData newHouse(city);
+        m_vHouse.push_back(newHouse);
+        m_iMoney -= city->GetCost();
+        return true;
+    }
 }
 
 void C_PlayerData::ConsumeMoney(int amount) {

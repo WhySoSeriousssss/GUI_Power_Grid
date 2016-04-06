@@ -10,7 +10,6 @@ public:
     ~C_HouseData();
 
     C_CityData* GetCity();
-    const C_CityData* GetCity() const;
 
 private:
     C_CityData* city;
