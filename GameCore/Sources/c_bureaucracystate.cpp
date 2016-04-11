@@ -9,14 +9,13 @@ C_BureaucracyState::~C_BureaucracyState() {
 }
 
 void C_BureaucracyState::Start() {
-    std::cout << "Start Bureaucracy State.\n\n";
+    std::cout << "Start Bureaucracy State.\n";
 
     for (int i = 0; i < pGameData->playerList.size(); i++) {
         G_BureaucracyDialog dlg;
         dlg.Initialize(&pGameData->playerList[i]);
         dlg.exec();
     }
-//	m_pOwner->NextPhase();
 }
 
 void C_BureaucracyState::Enter() {
@@ -24,5 +23,5 @@ void C_BureaucracyState::Enter() {
 }
 
 void C_BureaucracyState::Exit() {
-    std::cout << "Exiting Bureaucracy State\n";
+    std::cout << "Exiting Bureaucracy State\n\n";
 }

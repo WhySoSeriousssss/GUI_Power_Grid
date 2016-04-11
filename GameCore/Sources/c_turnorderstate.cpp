@@ -10,7 +10,6 @@ C_TurnOrderState::~C_TurnOrderState() {
 
 void C_TurnOrderState::Start() {
     std::cout << "Start Turn Order State\n";
-//	m_pOwner->NextPhase();
 }
 
 void C_TurnOrderState::Enter() {
@@ -19,7 +18,7 @@ void C_TurnOrderState::Enter() {
 }
 
 void C_TurnOrderState::Exit() {
-    std::cout << "Exiting Turn Order State\n";
+    std::cout << "Exiting Turn Order State\n\n";
 }
 
 bool CompareFunction(const C_PlayerData &p1, const C_PlayerData &p2) {

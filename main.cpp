@@ -4,11 +4,15 @@
 
 #include "c_menudata.h"
 #include "c_gamedata.h"
+#include "statemachine.h"
 
+#include "c_turnorderstate.h"
 #include "c_buyresourcesstate.h"
 #include "c_buypowerplantstate.h"
-#include "c_bureaucracystate.h"
 #include "c_buildstate.h"
+#include "c_bureaucracystate.h"
+#include "c_gamelog_phase.h"
+#include "c_gamelog_player.h"
 
 #include <QApplication>
 #include <iostream>
@@ -19,10 +23,13 @@ int main(int argc, char *argv[])
     g_GameWindow w;
     G_WelcomeDialog wd;
 
+
     C_BuyPowerPlantState state;
     C_BuyResourcesState state1;
     C_BuildState state2;
     C_BureaucracyState state3;
+
+    StateMachine states;
 
     wd.exec();
 
@@ -32,21 +39,20 @@ int main(int argc, char *argv[])
 
         w.show();
 
-        state2.Start();
-        /*
-        state.Enter();
-        state.Start();
-
-        state1.Enter();
-        state1.Start();
-
-        state3.Enter();
-        state3.Start();
-        */
-
+        states.ChangeState(&state);
+        states.ChangeState(&state1);
+        states.ChangeState(&state2);
+        states.ChangeState(&state3);
 
     }
 
 
+    /*
+    C_PlayerData p1("a");
+    C_PlayerData p2("b");
+
+    C_BuildState state2;
+    state2.Start();
+*/
     return a.exec();
 }

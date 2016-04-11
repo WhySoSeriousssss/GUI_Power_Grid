@@ -5,8 +5,9 @@ C_HouseData::C_HouseData() :
 
 }
 
-C_HouseData::C_HouseData(C_CityData* city) :
-    city(city) {
+C_HouseData::C_HouseData(C_CityData* city)
+    {
+    this->city = city;
     city->IncreaseCount();
 }
 

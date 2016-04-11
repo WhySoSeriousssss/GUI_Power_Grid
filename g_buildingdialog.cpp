@@ -23,6 +23,15 @@ void G_BuildingDialog::Initialize(C_MapData *pMap, C_PlayerData* player) {
     for (int i = 0; i < map->GetCities()->size(); i++) {
         ui->comboBox->addItem(QString::fromStdString((*map->GetCities())[i]->GetName()), i);
     }
+
+}
+
+std::string G_BuildingDialog::GetPlayerLog() {
+    return player_log;
+}
+
+std::string G_BuildingDialog::GetPhaseLog() {
+    return "Building Phase";
 }
 
 void G_BuildingDialog::on_comboBox_currentIndexChanged(int index)
@@ -33,8 +42,9 @@ void G_BuildingDialog::on_comboBox_currentIndexChanged(int index)
 void G_BuildingDialog::on_pushButton_clicked()
 {
     int i = ui->comboBox->currentIndex();
-    std::cout<<"index is "<<i<<"\n";
- //   player->BuyCity((*map->GetCities())[ui->comboBox->currentIndex()]);
+    player_log = "Player " + player->GetName() + " bought " + (*map->GetCities())[i]->GetName() + "\n";
+    player->BuyCity((*map->GetCities())[i]);   
+    Notify();
     this->accept();
 }
 

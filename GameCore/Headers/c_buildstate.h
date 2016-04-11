@@ -7,6 +7,9 @@
 
 #include "g_buildingdialog.h"
 
+#include "c_gamelog_phase.h"
+#include "c_gamelog_player.h"
+
 class C_BuildState: public I_State {
 
 public:

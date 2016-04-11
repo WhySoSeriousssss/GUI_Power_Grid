@@ -7,11 +7,13 @@
 #include "c_mapdata.h"
 #include "c_playerdata.h"
 
+#include "i_dialog.h"
+
 namespace Ui {
 class G_BuildingDialog;
 }
 
-class G_BuildingDialog : public QDialog
+class G_BuildingDialog : public QDialog, public I_Dialog
 {
     Q_OBJECT
 
@@ -19,7 +21,10 @@ public:
     explicit G_BuildingDialog(QWidget *parent = 0);
     ~G_BuildingDialog();
 
-    void G_BuildingDialog::Initialize(C_MapData *pMap, C_PlayerData* player);
+    void Initialize(C_MapData *pMap, C_PlayerData* player);
+
+    std::string GetPlayerLog();
+    std::string GetPhaseLog();
 
 private slots:
     void on_pushButton_clicked();
@@ -33,6 +38,8 @@ private:
 
     C_PlayerData* player;
     C_MapData* map;
+
+    std::string player_log;
 };
 
 #endif // G_BUILDINGDIALOG_H

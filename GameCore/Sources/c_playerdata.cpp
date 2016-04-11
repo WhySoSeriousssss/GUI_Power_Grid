@@ -14,8 +14,9 @@ C_PlayerData::C_PlayerData(string name) :
     m_iMaxCoal(0),
     m_iMaxOil(0),
     m_iMaxGarbage(0),
-    m_iMaxUranium(0) {
-    Notify();
+    m_iMaxUranium(0),
+    m_iNumberOfCitiesPoweredThisTurn(0){
+
 }
 
 C_PlayerData::C_PlayerData(std::string name, int money, int coal, int oil, int garbage, int uranium, std::vector<C_CardData *> cards) :
@@ -29,7 +30,7 @@ C_PlayerData::C_PlayerData(std::string name, int money, int coal, int oil, int g
 }
 
 C_PlayerData::~C_PlayerData() {
-//	delete m_vCard;
+
 }
 
 string C_PlayerData::GetName() {
@@ -128,11 +129,11 @@ void C_PlayerData::BuyUranium() {
     m_iUranium++;
 }
 
-std::vector<C_HouseData> C_PlayerData::GetHouse() {
+std::vector<C_HouseData *> C_PlayerData::GetHouse() {
     return m_vHouse;
 }
 
-const std::vector<C_HouseData> C_PlayerData::GetHouse() const {
+const std::vector<C_HouseData *> C_PlayerData::GetHouse() const {
     return m_vHouse;
 }
 
@@ -182,7 +183,7 @@ bool C_PlayerData::BuyCity(C_CityData* city) {
     if (m_iMoney < city->GetCost())
         return false;
     else {
-        C_HouseData newHouse(city);
+        C_HouseData* newHouse = new C_HouseData(city);
         m_vHouse.push_back(newHouse);
         m_iMoney -= city->GetCost();
         return true;
@@ -350,7 +351,7 @@ void C_PlayerData::Serialize(pugi::xml_node &parent) {
 
     for (int i = 0; i < m_vHouse.size(); i++) {
         auto house = XMLAppendChild(player, "house");
-        XMLAppendAttribute(house, "cityName", m_vHouse[i].GetCity()->GetName());
+        XMLAppendAttribute(house, "cityName", m_vHouse[i]->GetCity()->GetName());
     }
 
 }

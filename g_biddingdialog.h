@@ -35,6 +35,8 @@ private:
     int currentBidder;
 
     int biddingPrice;
+
+    std::string log;
 };
 
 #endif // G_BIDDINGDIALOG_H

@@ -9,6 +9,7 @@ C_BuyResourcesState::~C_BuyResourcesState() {
 }
 
 void C_BuyResourcesState::Start() {
+    std::cout << "Start Buy Resources State.\n";
 
     for (int i = (int)pGameData->playerList.size() - 1; i >= 0; i--) {
         G_BuyingResourcesDialog* buyResourcesDlg = new G_BuyingResourcesDialog();
@@ -35,7 +36,6 @@ void C_BuyResourcesState::Start() {
 
         delete buyResourcesDlg;
     }
-//	m_pOwner->NextPhase();
 }
 
 void C_BuyResourcesState::Enter() {
@@ -46,5 +46,5 @@ void C_BuyResourcesState::Enter() {
 }
 
 void C_BuyResourcesState::Exit() {
-    std::cout << "Exiting Buy Resources State\n";
+    std::cout << "Exiting Buy Resources State\n\n";
 }

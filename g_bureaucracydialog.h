@@ -27,14 +27,13 @@ public:
 
 private slots:
 
-
-    void on_checkBox_clicked(bool checked);
-
-    void on_checkBox_2_clicked(bool checked);
-
-    void on_checkBox_3_clicked(bool checked);
-
     void on_pushButton_clicked();
+
+    void on_checkBox_toggled(bool checked);
+
+    void on_checkBox_2_toggled(bool checked);
+
+    void on_checkBox_3_toggled(bool checked);
 
 private:
     Ui::G_BureaucracyDialog *ui;

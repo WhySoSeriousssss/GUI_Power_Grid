@@ -12,12 +12,11 @@ C_BuyPowerPlantState::~C_BuyPowerPlantState() {
 }
 
 void C_BuyPowerPlantState::Start() {
-    std::cout << "Start Buy Power Plant State.\n\n";
+    std::cout << "Start Buy Power Plant State.\n";
 
     marketDlg->Start();
     marketDlg->exec();
 
-//	m_pOwner->NextPhase();
 }
 
 void C_BuyPowerPlantState::Enter() {
@@ -26,6 +25,6 @@ void C_BuyPowerPlantState::Enter() {
 }
 
 void C_BuyPowerPlantState::Exit() {
-    std::cout << "Exiting Buy Power Plant State\n";
+    std::cout << "Exiting Buy Power Plant State\n\n";
 }
 

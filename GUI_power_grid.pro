@@ -78,7 +78,12 @@ HEADERS  += g_gamewindow.h \
     GameCore/Headers/c_buildstate.h \
     GameCore/Headers/c_turnorderstate.h \
     g_plantmarketdialog.h \
-    g_buildingdialog.h
+    g_buildingdialog.h \
+    GameCore/Headers/c_gamelog.h \
+    GameCore/Headers/c_gamelog_player.h \
+    GameCore/Headers/c_gamelog_phase.h \
+    GameCore/Headers/c_gamelog_decorator.h \
+    GameCore/Headers/i_dialog.h
 
 FORMS    += g_gamewindow.ui \
     g_welcomedialog.ui \

@@ -55,8 +55,8 @@ public:
     void BuyGarbage();
     void BuyUranium();
 
-    std::vector<C_HouseData> GetHouse();
-    const std::vector<C_HouseData> GetHouse() const;
+    std::vector<C_HouseData *> GetHouse();
+    const std::vector<C_HouseData *> GetHouse() const;
 
     std::vector<C_CardData *> GetCard();
     const std::vector<C_CardData *> GetCard() const;
@@ -91,7 +91,7 @@ private:
     int m_iNumberOfCitiesPoweredThisTurn;
 
     std::vector<C_CardData *> m_vCard;
-    std::vector<C_HouseData> m_vHouse;
+    std::vector<C_HouseData *> m_vHouse;
 };
 
 #endif // C_PLAYERDATA_H

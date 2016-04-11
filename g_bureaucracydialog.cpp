@@ -177,7 +177,20 @@ bool G_BureaucracyDialog::TestEnoughFuel(int cardIndex) {
     return true;
 }
 
-void G_BureaucracyDialog::on_checkBox_clicked(bool checked)
+void G_BureaucracyDialog::on_pushButton_clicked()
+{
+    if (ui->checkBox->isChecked())
+        player->GenerateElectricity(0);
+    if (ui->checkBox_2->isChecked())
+        player->GenerateElectricity(1);
+    if (ui->checkBox_3->isChecked())
+        player->GenerateElectricity(2);
+    int income = player->GetIncome();
+    std::cout<<"Player "<<player->GetName()<<" gets $" <<income << " this turn.\n";
+    this->accept();
+}
+
+void G_BureaucracyDialog::on_checkBox_toggled(bool checked)
 {
     if (checked == true)
         RealTimeUpdate(0);
@@ -197,7 +210,7 @@ void G_BureaucracyDialog::on_checkBox_clicked(bool checked)
     }
 }
 
-void G_BureaucracyDialog::on_checkBox_2_clicked(bool checked)
+void G_BureaucracyDialog::on_checkBox_2_toggled(bool checked)
 {
     if (checked == true)
         RealTimeUpdate(1);
@@ -217,7 +230,7 @@ void G_BureaucracyDialog::on_checkBox_2_clicked(bool checked)
     }
 }
 
-void G_BureaucracyDialog::on_checkBox_3_clicked(bool checked)
+void G_BureaucracyDialog::on_checkBox_3_toggled(bool checked)
 {
     if (checked == true) {
         RealTimeUpdate(2);
@@ -227,17 +240,4 @@ void G_BureaucracyDialog::on_checkBox_3_clicked(bool checked)
     }
     ui->checkBox->setCheckable(TestEnoughFuel(0));
     ui->checkBox_2->setCheckable(TestEnoughFuel(1));
-}
-
-void G_BureaucracyDialog::on_pushButton_clicked()
-{
-    if (ui->checkBox->isChecked())
-        player->GenerateElectricity(0);
-    if (ui->checkBox_2->isChecked())
-        player->GenerateElectricity(1);
-    if (ui->checkBox_3->isChecked())
-        player->GenerateElectricity(2);
-    int income = player->GetIncome();
-    std::cout<<"Player "<<player->GetName()<<" gets $" <<income << " this turn.\n";
-    this->accept();
 }
