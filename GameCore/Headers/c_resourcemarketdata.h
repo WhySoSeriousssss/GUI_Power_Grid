@@ -40,6 +40,10 @@ public:
     int GetCostOfUranium();
     const int GetCostOfUranium() const;
 
+    void SetResources(int coal, int oil, int garbage, int uranium);
+
+    void ResetResources();
+
 private:
     int m_iCoal;
     int m_iOil;

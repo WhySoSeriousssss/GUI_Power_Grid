@@ -36,6 +36,77 @@ void C_GameData::Initialize() {
 
 }
 
+void C_GameData::SaveGame() {
+    // create save game document
+    pugi::xml_document doc;
+    auto declarationNode = doc.append_child(pugi::node_declaration);
+    declarationNode.append_attribute("version") = "1.0";
+
+    // create game root
+    auto root = XMLAppendChild(doc, "game");
+
+    // serialize the resource market
+    auto resources = XMLAppendChild(root, "resources");
+    XMLAppendAttribute(resources, "coal", market.GetCoal());
+    XMLAppendAttribute(resources, "oil", market.GetOil());
+    XMLAppendAttribute(resources, "garbage", market.GetGarbage());
+    XMLAppendAttribute(resources, "uranium", market.GetUranium());
+
+    // serialize players
+    auto players = XMLAppendChild(root, "player-list");
+    for (int i = 0; i < playerList.size(); i++) {
+        playerList[i].Serialize(players);
+    }
+
+    doc.save_file("gamesave.xml");
+}
+
+void C_GameData::LoadGame() {
+    /*
+    pugi::xml_document doc;
+    doc.load_file("gamesave.xml");
+
+    //load resource market
+    pugi::xml_node resource_node = doc.child("resources");
+    market.SetResources(
+        XMLParseInt(resource_node.attribute("coal")),
+        XMLParseInt(resource_node.attribute("oil")),
+        XMLParseInt(resource_node.attribute("garbage")),
+        XMLParseInt(resource_node.attribute("uranium"))
+                );
+
+
+    // load players info
+    pugi::xml_node player_node = doc.child("player-list");
+
+    for (pugi::xml_node player = player_node.first_child(); player; player = player.next_sibling()) {
+
+        //parsing cards
+        std::vector<C_CardData *> tempCard;
+        for (pugi::xml_node card = player.first_child(); card; card = card.next_sibling()) {
+            tempCard.push_back(C_CardData(
+                XMLParseInt(card.attribute("number")),
+                XMLParseInt(card.attribute("cost")),
+                XMLParseInt(card.attribute("payment")),
+                XMLParseInt(card.attribute("powers"))
+                ));
+        }
+
+        //parsing houses
+        std::vector<C_HouseData *> tempHouses;
+
+        playerList[i].push_back(C_PlayerData(
+            XMLParseString(player.attribute("name")),
+            XMLParseInt(player.attribute("money")),
+            XMLParseInt(player.attribute("coal")),
+            XMLParseInt(player.attribute("oil")),
+            XMLParseInt(player.attribute("garbage")),
+            XMLParseInt(player.attribute("uranium")),
+            tempCard
+            ));
+    }
+*/
+}
 
 BuyResults_e C_GameData::PlayerAttemptsToBuyResource(int playerNum, int resourceType) {
     switch (resourceType)

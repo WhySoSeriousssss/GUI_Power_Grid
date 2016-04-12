@@ -36,6 +36,9 @@ public:
 
     void Initialize();
 
+    void SaveGame();
+    void LoadGame();
+
     BuyResults_e PlayerAttemptsToBuyResource(int playerNum, int resourceType);
 
     //Junan: for testing

@@ -14,6 +14,7 @@ void C_TurnOrderState::Start() {
 
 void C_TurnOrderState::Enter() {
     std::cout << "Entering Turn Order State\n";
+    pGameData->market.ResetResources();
 //    std::sort(pGameData->playerList.begin(), pGameData->playerList.end(), CompareFunction);
 }
 

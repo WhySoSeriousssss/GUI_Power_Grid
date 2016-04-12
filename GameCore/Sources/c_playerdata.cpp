@@ -336,12 +336,12 @@ int C_PlayerData::GetIncome() {
 
 void C_PlayerData::Serialize(pugi::xml_node &parent) {
     auto player = XMLAppendChild(parent, "player");
-    XMLAppendAttribute(player, "name", GetName());
-    XMLAppendAttribute(player, "money", GetMoney());
-    XMLAppendAttribute(player, "coal", GetCoal());
-    XMLAppendAttribute(player, "oil", GetOil());
-    XMLAppendAttribute(player, "garbage", GetGarbage());
-    XMLAppendAttribute(player, "uranium", GetUranium());
+    XMLAppendAttribute(player, "name", m_sName);
+    XMLAppendAttribute(player, "money", m_iMoney);
+    XMLAppendAttribute(player, "coal", m_iCoal);
+    XMLAppendAttribute(player, "oil", m_iOil);
+    XMLAppendAttribute(player, "garbage", m_iGarbage);
+    XMLAppendAttribute(player, "uranium", m_iUranium);
 
 
     for (int i = 0; i < m_vCard.size(); i++) {

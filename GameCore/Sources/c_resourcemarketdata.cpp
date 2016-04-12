@@ -106,3 +106,17 @@ int C_ResourceMarket::GetCostOfUranium() {
 const int C_ResourceMarket::GetCostOfUranium() const {
     return (int)(18 - m_iUranium * 2);
 }
+
+void C_ResourceMarket::SetResources(int coal, int oil, int garbage, int uranium) {
+    m_iCoal = coal;
+    m_iOil = oil;
+    m_iGarbage = garbage;
+    m_iUranium = uranium;
+}
+
+void C_ResourceMarket::ResetResources() {
+    m_iCoal = STARTING_COAL;
+    m_iOil = STARTING_OIL;
+    m_iGarbage = STARTING_GARBAGE;
+    m_iUranium = STARTING_URANIUM;
+}

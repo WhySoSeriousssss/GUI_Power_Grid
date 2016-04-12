@@ -20,7 +20,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+
     g_GameWindow w;
+
     G_WelcomeDialog wd;
 
 
@@ -39,20 +42,13 @@ int main(int argc, char *argv[])
 
         w.show();
 
-        states.ChangeState(&state);
-        states.ChangeState(&state1);
+     //   states.ChangeState(&state);
+     //   states.ChangeState(&state1);
         states.ChangeState(&state2);
-        states.ChangeState(&state3);
+     //   states.ChangeState(&state3);
 
+     //   pGameData->SaveGame();
     }
 
-
-    /*
-    C_PlayerData p1("a");
-    C_PlayerData p2("b");
-
-    C_BuildState state2;
-    state2.Start();
-*/
     return a.exec();
 }
