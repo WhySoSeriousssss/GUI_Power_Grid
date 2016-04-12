@@ -17,7 +17,7 @@ class C_PlayerData : I_Subject {
 public:
     C_PlayerData();
     C_PlayerData(string name);
-    C_PlayerData(std::string name, int money, int coal, int oil, int garbage, int uranium, std::vector<C_CardData *> cards);
+    C_PlayerData(std::string name, int money, int coal, int oil, int garbage, int uranium, std::vector<C_CardData *> cards, std::vector<C_HouseData *> houses);
     ~C_PlayerData();
 
     string GetName();

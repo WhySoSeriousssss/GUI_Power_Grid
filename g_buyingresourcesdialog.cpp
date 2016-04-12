@@ -35,6 +35,10 @@ void G_BuyingResourcesDialog::Initialize(C_PlayerData *p, C_ResourceMarket *m) {
     ui->label_13->setText(QString::number(player->GetMoney()));
 
     //set quantity limits
+    ui->spinBox->setMinimum(0);
+    ui->spinBox_2->setMinimum(0);
+    ui->spinBox_3->setMinimum(0);
+    ui->spinBox_4->setMinimum(0);
     ui->spinBox->setMaximum(player->GetMaxCoal());
     ui->spinBox_2->setMaximum(player->GetMaxOil());
     ui->spinBox_3->setMaximum(player->GetMaxGarbage());

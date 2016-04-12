@@ -15,6 +15,7 @@ public:
     void SetChoice(MENU_OPTION option);
 
     MENU_OPTION GetOption();
+
 private:
     MENU_OPTION option;
 };

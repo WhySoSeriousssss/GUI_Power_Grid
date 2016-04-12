@@ -58,16 +58,20 @@ void C_GameData::SaveGame() {
         playerList[i].Serialize(players);
     }
 
+    //serialize deck
+    deck.Serialize(root);
     doc.save_file("gamesave.xml");
 }
 
 void C_GameData::LoadGame() {
-    /*
+
     pugi::xml_document doc;
     doc.load_file("gamesave.xml");
 
+    pugi::xml_node root = doc.child("game");
+
     //load resource market
-    pugi::xml_node resource_node = doc.child("resources");
+    pugi::xml_node resource_node = root.child("resources");
     market.SetResources(
         XMLParseInt(resource_node.attribute("coal")),
         XMLParseInt(resource_node.attribute("oil")),
@@ -76,36 +80,85 @@ void C_GameData::LoadGame() {
                 );
 
 
+    // load deck info
+    std::vector<C_CardData *> inDeck;
+    std::vector<C_CardData *> inMarket;
+    std::vector<C_CardData *> inHold;
+    std::vector<C_CardData *> inDiscarded;
+
+    pugi::xml_node indeck_node = root.child("in-deck");
+    for (pugi::xml_node deckCard = indeck_node.first_child(); deckCard; deckCard = deckCard.next_sibling()) {
+        inDeck.push_back(new C_CardData(
+                             XMLParseInt(deckCard.attribute("number")),
+                             XMLParseInt(deckCard.attribute("cost")),
+                             XMLParseInt(deckCard.attribute("payment")),
+                             XMLParseInt(deckCard.attribute("powers"))
+                             ));
+    }
+
+    pugi::xml_node inmarket_node = root.child("in-market");
+    for (pugi::xml_node deckCard = inmarket_node.first_child(); deckCard; deckCard = deckCard.next_sibling()) {
+        inMarket.push_back(new C_CardData(
+                             XMLParseInt(deckCard.attribute("number")),
+                             XMLParseInt(deckCard.attribute("cost")),
+                             XMLParseInt(deckCard.attribute("payment")),
+                             XMLParseInt(deckCard.attribute("powers"))
+                             ));
+    }
+
+    pugi::xml_node inhold_node = root.child("in-hold");
+    for (pugi::xml_node deckCard = inhold_node.first_child(); deckCard; deckCard = deckCard.next_sibling()) {
+        inHold.push_back(new C_CardData(
+                             XMLParseInt(deckCard.attribute("number")),
+                             XMLParseInt(deckCard.attribute("cost")),
+                             XMLParseInt(deckCard.attribute("payment")),
+                             XMLParseInt(deckCard.attribute("powers"))
+                             ));
+    }
+
+    pugi::xml_node indiscarded_node = root.child("in-discarded");
+    for (pugi::xml_node deckCard = indiscarded_node.first_child(); deckCard; deckCard = deckCard.next_sibling()) {
+        inDiscarded.push_back(new C_CardData(
+                             XMLParseInt(deckCard.attribute("number")),
+                             XMLParseInt(deckCard.attribute("cost")),
+                             XMLParseInt(deckCard.attribute("payment")),
+                             XMLParseInt(deckCard.attribute("powers"))
+                             ));
+    }
+
+    deck.SetDeck(inDeck, inMarket, inHold, inDiscarded);
+
     // load players info
-    pugi::xml_node player_node = doc.child("player-list");
+    pugi::xml_node player_node = root.child("player-list");
 
     for (pugi::xml_node player = player_node.first_child(); player; player = player.next_sibling()) {
 
         //parsing cards
-        std::vector<C_CardData *> tempCard;
-        for (pugi::xml_node card = player.first_child(); card; card = card.next_sibling()) {
-            tempCard.push_back(C_CardData(
-                XMLParseInt(card.attribute("number")),
-                XMLParseInt(card.attribute("cost")),
-                XMLParseInt(card.attribute("payment")),
-                XMLParseInt(card.attribute("powers"))
-                ));
+        std::vector<C_CardData *> tempCards;
+        pugi::xml_node cards = player.child("cards");
+        for (pugi::xml_node card = cards.first_child(); card; card = card.next_sibling()) {
+            tempCards.push_back(deck.FindCardInHold(XMLParseInt(card.attribute("number"))));
         }
 
         //parsing houses
         std::vector<C_HouseData *> tempHouses;
+        pugi::xml_node houses = player.child("houses");
+        for (pugi::xml_node city = houses.child("city"); city; city = city.next_sibling()) {
+            tempHouses.push_back(new C_HouseData(map.GetCityByName(XMLParseString(city.attribute("name")))));
+        }
 
-        playerList[i].push_back(C_PlayerData(
+        playerList.push_back(C_PlayerData(
             XMLParseString(player.attribute("name")),
             XMLParseInt(player.attribute("money")),
             XMLParseInt(player.attribute("coal")),
             XMLParseInt(player.attribute("oil")),
             XMLParseInt(player.attribute("garbage")),
             XMLParseInt(player.attribute("uranium")),
-            tempCard
+            tempCards,
+            tempHouses
             ));
     }
-*/
+
 }
 
 BuyResults_e C_GameData::PlayerAttemptsToBuyResource(int playerNum, int resourceType) {

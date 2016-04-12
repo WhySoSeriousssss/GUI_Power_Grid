@@ -19,14 +19,44 @@ C_PlayerData::C_PlayerData(string name) :
 
 }
 
-C_PlayerData::C_PlayerData(std::string name, int money, int coal, int oil, int garbage, int uranium, std::vector<C_CardData *> cards) :
+C_PlayerData::C_PlayerData(std::string name, int money, int coal, int oil, int garbage, int uranium, std::vector<C_CardData *> cards, std::vector<C_HouseData *> houses) :
     m_sName(name),
     m_iMoney(money),
     m_iCoal(coal),
     m_iOil(oil),
     m_iGarbage(garbage),
     m_iUranium(uranium),
-    m_vCard(cards) {
+    m_vCard(cards),
+    m_vHouse(houses){
+    m_iMaxCoal = 0;
+    m_iMaxOil = 0;
+    m_iMaxGarbage = 0;
+    m_iMaxUranium = 0;
+    for (int i = 0; i < m_vCard.size(); i++) {
+        int num = m_vCard[i]->GetCost();
+        int resource = m_vCard[i]->GetResources();
+        switch (resource)
+        {
+        case 1:
+            m_iMaxCoal += num * 2;
+            break;
+        case 10:
+            m_iMaxOil += num * 2;
+            break;
+        case 11:
+            m_iMaxCoal += num * 2;
+            m_iMaxOil += num * 2;
+            break;
+        case 100:
+            m_iMaxGarbage += num * 2;
+            break;
+        case 1000:
+            m_iMaxUranium += num * 2;
+            break;
+        default:
+            break;
+        }
+    }
 }
 
 C_PlayerData::~C_PlayerData() {
@@ -343,15 +373,16 @@ void C_PlayerData::Serialize(pugi::xml_node &parent) {
     XMLAppendAttribute(player, "garbage", m_iGarbage);
     XMLAppendAttribute(player, "uranium", m_iUranium);
 
-
+    auto cards = XMLAppendChild(player, "cards");
     for (int i = 0; i < m_vCard.size(); i++) {
-        auto card = XMLAppendChild(player, "card");
+        auto card = XMLAppendChild(cards, "card");
         XMLAppendAttribute(card, "number", m_vCard[i]->GetNumber());
     }
 
+    auto houses = XMLAppendChild(player, "houses");
     for (int i = 0; i < m_vHouse.size(); i++) {
-        auto house = XMLAppendChild(player, "house");
-        XMLAppendAttribute(house, "cityName", m_vHouse[i]->GetCity()->GetName());
+        auto city = XMLAppendChild(houses, "city");
+        XMLAppendAttribute(city, "name", m_vHouse[i]->GetCity()->GetName());
     }
 
 }

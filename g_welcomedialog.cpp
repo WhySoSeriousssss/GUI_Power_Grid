@@ -1,8 +1,6 @@
 #include "g_welcomedialog.h"
 #include "ui_g_welcomedialog.h"
 
-//#include "c_menudata.h"
-
 G_WelcomeDialog::G_WelcomeDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::G_WelcomeDialog),

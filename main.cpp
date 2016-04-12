@@ -42,13 +42,23 @@ int main(int argc, char *argv[])
 
         w.show();
 
-     //   states.ChangeState(&state);
-     //   states.ChangeState(&state1);
+        states.ChangeState(&state);
+        states.ChangeState(&state1);
         states.ChangeState(&state2);
-     //   states.ChangeState(&state3);
+        states.ChangeState(&state3);
 
-     //   pGameData->SaveGame();
+        pGameData->SaveGame();
     }
 
+    else {
+        pGameData->LoadGame();
+
+        w.show();
+
+        states.ChangeState(&state);
+        states.ChangeState(&state1);
+        states.ChangeState(&state2);
+        states.ChangeState(&state3);
+    }
     return a.exec();
 }
